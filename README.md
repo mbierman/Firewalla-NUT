@@ -1,49 +1,149 @@
+Review and don't ignore any of the past feedback I missed unless I have told you to ignore it
+
 # Firewalla-NUT
-NUT client for Firewalla
+Using a NUT client with Firewalla
 
 ### Summary
-
-A NUT client is the software responsible for watching the UPS status over a network and gracefully shutting down the host machine before the battery runs out. This provides instructions for running a NUT client on Firewalla to have it safely shutdown before it runs out of power after a blackout. 
-
+A NUT client is the software responsible for watching the UPS status over a network and gracefully shutting down the host machine before the USP battery runs out. This project provides instructions for running a NUT client on Firewalla to ensure it safely shuts down during a blackout to prevent damage from unexpected power loss.
 
 ### About NUT
-NUT operates on a server-client architecture. While the server (upsd) is physically connected to the Uninterruptible Power Supply (UPS) via USB or Serial, the client (upsmon) is the software that listens for updates.
+NUT operates on a server-client architecture. While the server (`upsd`) is physically connected to the Uninterruptible Power Supply (UPS) via a USB or Serial cable, the client (`upsmon`) is the software that listens for updates over your network.
 
-| Component | Role | Analogous To... |
+<img width="600" height="1043" alt="image" src="https://github.com/user-attachments/assets/171dd13b-04a2-41b7-bb81-c09fbdf9fd8c" />
+
+| Component | Role | Description |
 | :--- | :--- | :--- |
-| **UPS** | The Battery | The physical hardware. |
-| **NUT Server** | The Reporter | Polls the UPS and broadcasts its status. |
-| **NUT Client** | The Executor | Watches the status and triggers actions (like a shutdown). |
+| **UPS** | Hardware | The physical battery unit. |
+| **NUT Server** | The Reporter | Polls the UPS and broadcasts status to the network. |
+| **NUT Client** | The Executor | Watches the status and triggers local actions (like shutdown). |
 
-Basic actions of each component includes: 
-1. **Monitoring:** The *NUT Server* monitores the UPS and notifies *NUT clients* when the UPS is on wall power or battery power as well as battery level, etc. 
-1. **Triggering Actions:**  If the power fails, the client waits until a specific threshold is met (e.g., "Battery Critical") and then initiates a safe system shutdown to prevent data corruption.
-1. **Notifying Users:** It can send alerts via wall messages, emails, or scripts to let you know the power status has changed.
+**Primary Functions:**
+1. **Monitoring:** The *NUT Server* monitors the *UPS* and notifies *NUT Clients* of power status (Wall/Battery) and battery levels.
+1. **Triggering Actions:** If power fails, the client waits until a specific threshold is met (e.g., "Battery Critical") and initiates a safe system shutdown.
+1. **Notifying Users:** The system can send alerts via wall messages, emails, or scripts regarding power status changes.
 
-### Why Use a NUT Client?
-The beauty of this system is that one UPS can protect multiple devices. If you have one UPS powering a NAS, a PC, and a secondary server, you only connect the UPS to the NAS (the Server). You then install NUT Clients on the PC and the secondary server. Over the network, the NAS tells both machines, "Hey, the battery is dying—save your work and shut down now!"
+### Why Use NUT with Firewalla?
+One UPS can protect multiple devices. If you have a UPS powering a NAS, a PC, and a Firewalla, you only physically connect the UPS to one device (the Server) via USB or serial cable. You then install NUT Clients on the other device and the Server tells the Clients over the local network to shut down gracefully and safely before the battery is depleted.
 
-### How this set up works
-This configuration runs a lightwaeight NUT client on Firewalla. It assumes that you have a UPS connected to a NUT server and that the NUT server is configured and has network connectivity. 
+### How this setup works
+The configuration described here runs a lightweight NUT client on Firewalla. It assumes that you have a UPS connected to a NUT server and that the server is configured and accessible via your network.
+
+In order to keep the NUT client separate from Firewalla and not interfere in any way with core services, we'll use a secure Docker container. This ensures that the client remains isolated and won't compromise Firewalla.
+
 
 ### Configuration Example
+In my example, I am using a UPS like this one:
+
+<img src="https://github.com/user-attachments/assets/9cd7a8cb-6349-4d1c-be70-bc27b05e426c" alt="UPS" width="600">
 
 
-In my excample,I'm using a UPS like this one. 
-![UPS](https://github.com/user-attachments/assets/9cd7a8cb-6349-4d1c-be70-bc27b05e426c)
+### Configure IP reservation for the NUT server
+First, create an [IP reservation](https://help.firewalla.com/hc/en-us/articles/115004304054-Device-Management#h_93f11f96-24f3-4181-aa19-d2dac0f16368) for your NUT server. You will need this IP later and you don't want it to change or things will fail down the road. 
 
-My UPS server is on a Synolgy NAS. There are many ways to run the NUT Server--that's left as an exercise for the reader.
+<img height="500"  alt="image" src="https://github.com/user-attachments/assets/e9b68635-7d4c-4dcf-903f-999321fe602d" />
 
 
+### Synology NAS (NUT Server) Setup
+My UPS server is hosted on a Synology NAS. There are other ways of doing this which I won't cover here. 
+> [!IMPORTANT]
+> This guide uses a specific Synology DSM version as an example. Interfaces vary significantly between different NAS manufacturers and even between different versions of Synology DSM. Use these steps as a general logical guide for your specific hardware.
 
-### Configuration instructions
+The Synology NAS acts as the "Reporter." Follow these steps to enable the network server using the numbered sequence in the image below:
 
-For now I haven't created an install script. Rather, here are example files and instructions are provided. You will need to modify the settings based on your UPS and your NUT server.
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/79bcf049-43d4-48bc-b091-4abff8e6a304" />
 
-1. [SSH to your firewalla]([url](https://help.firewalla.com/hc/en-us/articles/115004397274-How-to-access-Firewalla-using-SSH)).
-2. Create a directory for the docker. 
+1. **Accessing UPS Settings:**
+    1. Open the **Control Panel** (1).
+    1. Select **Hardware & Power** (2) from the left-hand menu.
+    1. Click the **UPS** tab (3) at the top.
+1. **Enabling the Server:**
+    1. Check the box to **Enable UPS support** (4).
+    1. Set the **Time before DiskStation enters Safe Mode** (5).
+    1. Check the box to **Enable network UPS server** (6).
+    1. Click the **Permitted DiskStation Devices** button (7).
+1. **Finalizing Permissions:**
+> [!IMPORTANT]
+    1. In the pop-up window, enter the **IP address of your Firewalla**. 
+    1. Click **Apply** to save the settings and start the service.
+
+### Default Synology NUT Credentials
+Since there are no fields for username or password in the Synology GUI, the system uses hardcoded defaults for access controls. You must use these in your Firewalla `upsmon.conf` file:
+
+* **UPS Name:** `ups`
+* **Username:** `monuser`
+* **Password:** `secret`
+
+### Configuration Instructions
+Currently, these steps are manual. You will need to modify the settings based on your specific UPS name and NUT server IP.
+
+1. [SSH to your Firewalla](https://help.firewalla.com/hc/en-us/articles/115004397274-How-to-access-Firewalla-using-SSH).
+1. Create a directory for the Docker container:
+   ```bash
+   pi@firewalla:~$ mkdir -p /home/pi/.firewalla/run/docker/nut
+   pi@firewalla:~$ cd /home/pi/.firewalla/run/docker/nut
+   ```
+1. Save all of the files in this project to the directory and check that all the files are in place.
 ```
-mkdir /home/pi/.firewalla/run/docker/nut
-cd /home/pi/.firewalla/run/docker/nut
+pi@firewalla:~$  ls -al 
+total 24
+drwxrwxr-x 2 pi pi 4096 Feb 26 19:49 .
+drwxr-xr-x 6 pi pi 4096 Feb 24 21:12 ..
+-rw-rw-r-- 1 pi pi  208 Feb 26 19:49 Dockerfile
+-rw-rw-r-- 1 pi pi  199 Feb 26 19:40 README.txt
+-rw-rw-r-- 1 pi pi  250 Feb 26 19:39 docker-compose.yml
+-rw-rw-r-- 1 pi pi  185 Feb 24 21:49 upsmon.conf
+pi@firewalla:~$
 ```
-3. Save the files in this project to that directory. You can use `vi` or 
+4. Build the docker image and Deploy
+You need to build the docker container as follows. 
+```
+pi@firewalla:~$ sudo docker-compose up -d --build
+```
+5. Test to see if it is working. If you get output like this, it is working. 
+```
+pi@firewalla:~$  sudo docker exec nut-client upsc ups@NUT_Server_IP_address
+Init SSL without certificate database
+battery.charge: 100
+battery.charge.low: 95
+battery.mfr.date: 2001/01/01
+battery.runtime: 2001
+battery.runtime.low: 120
+battery.type: PbAc
+battery.voltage: 13.7
+battery.voltage.nominal: 12.0
+device.mfr: American Power Conversion
+device.model: Back-UPS BE1050G3
+device.serial: 0B2502P08919
+device.type: ups
+driver.name: usbhid-ups
+driver.parameter.pollfreq: 30
+driver.parameter.pollinterval: 5
+driver.parameter.port: auto
+driver.version: DSM6-2-25510-201118
+driver.version.data: APC HID 0.95
+driver.version.internal: 0.38
+input.sensitivity: medium
+input.transfer.high: 139
+input.transfer.low: 92
+input.transfer.reason: input voltage out of range
+input.voltage: 116.0
+input.voltage.nominal: 115
+ups.beeper.status: enabled
+ups.delay.shutdown: 20
+ups.firmware: 464401G -495900G 
+ups.load: 14
+ups.mfr: American Power Conversion
+ups.mfr.date: 2025/01/09
+ups.model: Back-UPS BE1050G3
+ups.productid: 0002
+ups.realpower.nominal: 600
+ups.serial: 0B2502P08919
+ups.status: OL
+ups.test.result: Done and passed
+ups.timer.reboot: 0
+ups.timer.shutdown: -1
+ups.vendorid: 051d
+```
+
+### Troubleshooting
+* Be sure you don't have any rules on your Synology firewall blocking access from the Firewalla. Be sure TCP Port 3493 is open in for the Firewalla's IP.
