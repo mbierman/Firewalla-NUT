@@ -116,7 +116,7 @@ battery.voltage: 13.7
 battery.voltage.nominal: 12.0
 device.mfr: American Power Conversion
 device.model: Back-UPS BE1050G3
-device.serial: 0B2502P08919
+device.serial: ***
 device.type: ups
 driver.name: usbhid-ups
 driver.parameter.pollfreq: 30
@@ -140,7 +140,7 @@ ups.mfr.date: 2025/01/09
 ups.model: Back-UPS BE1050G3
 ups.productid: 0002
 ups.realpower.nominal: 600
-ups.serial: 0B2502P08919
+ups.serial: ***
 ups.status: OL
 ups.test.result: Done and passed
 ups.timer.reboot: 0
