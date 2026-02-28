@@ -42,7 +42,7 @@ First, create an [IP reservation](https://help.firewalla.com/hc/en-us/articles/1
 
 
 ### Synology NAS (NUT Server) Setup
-My UPS server is hosted on a Synology NAS. There are other ways of doing this which I won't cover here. 
+My NUT server is hosted on a Synology NAS. There are other ways of doing this which I won't cover here. 
 > [!IMPORTANT]
 > This guide uses a specific Synology DSM version as an example. Interfaces vary significantly between different NAS manufacturers and even between different versions of Synology DSM. Use these steps as a general logical guide for your specific hardware.
 
