@@ -63,6 +63,7 @@ The Synology NAS acts as the "Reporter." Follow these steps to enable the networ
     1. Click the **Permitted DiskStation Devices** button (7).
 1. **Finalizing Permissions:**
 > [!IMPORTANT]
+> Be sure to white list your Firewalla IP.
     1. In the pop-up window, enter the **IP address of your Firewalla**. 
     1. Click **Apply** to save the settings and start the service.
 
@@ -99,7 +100,7 @@ You need to build the docker container as follows. 
 ```
 pi@firewalla:~$ sudo docker-compose up -d --build
 ```
-5. Test to see if it is working. If you get output like this, it is working. 
+5. Test to see if it is working. If you get output like this, it is working. Replace NUT_Server_IP_address below with the IP you reserved for your Synology in the first step (e.g., ups@192.168.0.5)."
 ```
 pi@firewalla:~$  sudo docker exec nut-client upsc ups@NUT_Server_IP_address
 Init SSL without certificate database
@@ -146,4 +147,4 @@ ups.vendorid: 051d
 ```
 
 ### Troubleshooting
-* Be sure you don't have any rules on your Synology firewall blocking access from the Firewalla. Be sure TCP Port 3493 is open in for the Firewalla's IP.
+* Be sure you don't have any rules on your Synology firewall blocking access from the Firewalla. Be sure TCP Port 3493 is open for the Firewalla's IP.
