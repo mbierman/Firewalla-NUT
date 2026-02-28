@@ -51,13 +51,13 @@ The Synology NAS acts as the "Reporter." Follow these steps to enable the networ
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/79bcf049-43d4-48bc-b091-4abff8e6a304" />
 
 1. **Accessing UPS Settings**
-   * **1.1.** Open the **Control Panel** (1).
-   * **1.2.** Select **Hardware & Power** (2) from the left-hand menu.
-   * **1.3.** Click the **UPS** tab (3) at the top.
+   * **1.1.** Open the `Control Panel` (1).
+   * **1.2.** Select `Hardware & Power` (2) from the left-hand menu.
+   * **1.3.** Click the `UPS` tab (3) at the top.
 
 2. **Enabling the Server**
-   * **2.1.** Check the box to **Enable UPS support** (4).
-   * **2.2.** Set the **Time before DiskStation enters Safe Mode** (5).
+   * **2.1.** Check the box to `Enable UPS support` (4).
+   * **2.2.** Set the Time before DiskStation enters Safe Mode (5). You need to change this based on your UPS capacity. 
 ### Default Synology NUT Credentials
 Since there are no fields for username or password in the Synology GUI, the system uses hardcoded defaults for access controls. You must use these in your Firewalla `upsmon.conf` file:
 
