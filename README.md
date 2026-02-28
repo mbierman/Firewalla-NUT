@@ -65,12 +65,12 @@ Since there are no fields for username or password in the Synology GUI, the syst
 * **Username:** `monuser`
 * **Password:** `secret`
 
-If your NUT server has different cedentials you will need to change these appropriately in the setting files provided. 
+If your NUT server has different cedentials, you will need to change these appropriately in the setting files provided. 
 
 ### Configuration Instructions
 Currently, these steps are manual. You will need to modify the settings based on your specific UPS name and NUT server IP.
 
-1. [SSH to your Firewalla](https://help.firewalla.com/hc/en-us/articles/115004397274-How-to-access-Firewalla-using-SSH).
+1. [SSH ](https://help.firewalla.com/hc/en-us/articles/115004397274-How-to-access-Firewalla-using-SSH) to your Firewalla.
 1. Create a directory for the Docker container:
    ```bash
    pi@firewalla:~$ mkdir -p /home/pi/.firewalla/run/docker/nut
