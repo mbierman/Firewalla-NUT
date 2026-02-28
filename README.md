@@ -65,6 +65,8 @@ Since there are no fields for username or password in the Synology GUI, the syst
 * **Username:** `monuser`
 * **Password:** `secret`
 
+If your NUT server has different cedentials you will need to change these appropriately in the setting files provided. 
+
 ### Configuration Instructions
 Currently, these steps are manual. You will need to modify the settings based on your specific UPS name and NUT server IP.
 
