@@ -32,7 +32,9 @@ In order to keep the NUT client separate from Firewalla and not interfere in any
 ### Configuration Example
 In my example, I am using a UPS like this one:
 
-<img src="https://github.com/user-attachments/assets/9cd7a8cb-6349-4d1c-be70-bc27b05e426c" alt="UPS" width="600">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/9cd7a8cb-6349-4d1c-be70-bc27b05e426c" alt="UPS" width="600" >
+</div>
 
 
 ### Configure IP reservation for the NUT server
