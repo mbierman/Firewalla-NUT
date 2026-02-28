@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  nut-client:
+    build: .
+    image: nut-local:latest
+    container_name: nut-client
+    restart: always
+    privileged: true
+    pid: "host"
+    network_mode: host
+    volumes:
+      - ./upsmon.conf:/etc/nut/upsmon.conf:ro
