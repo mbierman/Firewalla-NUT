@@ -1,5 +1,3 @@
-Review and don't ignore any of the past feedback I missed unless I have told you to ignore it
-
 # Firewalla-NUT
 Using a NUT client with Firewalla
 
