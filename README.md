@@ -95,12 +95,15 @@ drwxr-xr-x 6 pi pi 4096 Feb 24 21:12 ..
 -rw-rw-r-- 1 pi pi  185 Feb 24 21:49 upsmon.conf
 pi@firewalla:~$
 ```
-4. Build the docker image and Deploy
+
+4. Edit `upsmon.conf` to replace the IP of your NUT server.
+
+5. Build the docker image and Deploy
 You need to build the docker container as follows. 
 ```
 pi@firewalla:~$ sudo docker-compose up -d --build
 ```
-5. Test to see if it is working. If you get output like this, it is working. Replace NUT_Server_IP_address below with the IP you reserved for your Synology in the first step (e.g., ups@192.168.0.5)."
+6. Test to see if it is working. If you get output like this, it is working. Replace NUT_Server_IP_address below with the IP you reserved for your Synology in the first step (e.g., ups@192.168.0.5)."
 ```
 pi@firewalla:~$  sudo docker exec nut-client upsc ups@NUT_Server_IP_address
 Init SSL without certificate database
