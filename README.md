@@ -36,7 +36,7 @@ In my example, I am using a UPS like this one:
 
 
 ### Configure IP reservation for the NUT server
-First, create an [IP reservation](https://help.firewalla.com/hc/en-us/articles/115004304054-Device-Management#h_93f11f96-24f3-4181-aa19-d2dac0f16368) for your NUT server. You will need this IP later and you don't want it to change or things will fail down the road. 
+First, create an [IP reservation](https://help.firewalla.com/hc/en-us/articles/115004304054-Device-Management#h_93f11f96-24f3-4181-aa19-d2dac0f16368) for your NUT server. You will need this IP later and you don't want it to change or things will fail down the road. In my example, my NUT server will be my Synology NAS as described below.
 
 <img height="500"  alt="image" src="https://github.com/user-attachments/assets/e9b68635-7d4c-4dcf-903f-999321fe602d" />
 
