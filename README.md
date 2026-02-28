@@ -10,7 +10,7 @@ NUT operates on a server-client architecture. While the server (`upsd`) is physi
 <div align="center">
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/bd5f1cef-0ac7-4994-9f52-10d7cd16f027" />
 </div>
-
+<br>
 
 | Component | Role | Description |
 | :--- | :--- | :--- |
