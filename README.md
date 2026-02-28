@@ -6,6 +6,7 @@ A NUT client is the software responsible for watching the UPS status over a netw
 
 ### About NUT
 NUT operates on a server-client architecture. While the server (`upsd`) is physically connected to the Uninterruptible Power Supply (UPS) via a USB or Serial cable, the client (`upsmon`) is the software that listens for updates over your network.
+
 <img width="600" height="1043" alt="image" src="https://github.com/user-attachments/assets/2237c0e9-0b41-40b2-87d6-9e6efa5149ac" />
 
 
