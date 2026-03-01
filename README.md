@@ -26,6 +26,8 @@ NUT operates on a server-client architecture. While the server (`upsd`) is physi
 ### Why Use NUT with Firewalla?
 One UPS can protect multiple devices. If you have a UPS powering a NAS, a PC, and a Firewalla, you only physically connect the UPS to one device (the Server) via USB or serial cable. You then install NUT Clients on the other device and the Server tells the Clients over the local network to shut down gracefully and safely before the battery is depleted.
 
+Note this is a very lightwaight docker container and should be safe on any box. 
+
 ### How this setup works
 The configuration described here runs a lightweight NUT client on Firewalla. It assumes that you have a UPS connected to a NUT server and that the server is configured and accessible via your network.
 
