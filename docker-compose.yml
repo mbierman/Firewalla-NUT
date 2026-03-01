@@ -4,7 +4,9 @@ services:
     build: .
     image: nut-local:latest
     container_name: nut-client
-    restart: always
+    restart: unless-stopped
+    mem_limit: 64m
+    memswap_limit: 64m
     privileged: true
     pid: "host"
     network_mode: host
