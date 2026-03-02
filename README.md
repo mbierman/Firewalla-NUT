@@ -33,9 +33,9 @@ When the UPS status changes, the server broadcasts the update to all connected c
 1. **Notifying Users:** The system can send alerts via wall messages, emails, or scripts regarding power status changes.
 
 ### Why Use NUT with Firewalla?
-One UPS can protect multiple devices. If you have a UPS powering a NAS, a PC, and a Firewalla, you only physically connect the UPS to one device (the Server) via USB or serial cable. You then install NUT Clients on the other device and the Server tells the Clients over the local network to shut down gracefully and safely before the battery is depleted.
+Protecting devices like your Firewalla can bring great peace of mind and if you have a UPS you can protect multiple devices at once. 
 
-Note this is a very lightwaight docker container and should be safe on any box. 
+Note this solution uses a very lightwaight docker container and should be safe on any Firewalla box.
 
 ### How this setup works
 The configuration described here runs a lightweight NUT client on Firewalla. It assumes that you have a UPS connected to a NUT server and that the server is configured and accessible via your network.
