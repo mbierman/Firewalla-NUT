@@ -1,11 +1,17 @@
 # Firewalla-NUT
 Using a NUT client with Firewalla
 
-### Summary
-[NUT](https://github.com/networkupstools/nut) is an opensource project which includes a NUT server which connects to a UPS to monitor data about its state (wall power/batter, remaining charge, etc.) and optional NUT clientswhich take information from the NUT server over a network and gracefully shut down the machine running the NUT client before the USP battery runs out. This project provides instructions for running a NUT client on Firewalla to ensure it safely shuts down during a blackout to prevent damage from unexpected power loss. Using a UPS is a good idea with expensive equipment like Firewalla.
+## Summary
+[NUT](https://github.com/networkupstools/nut) is an open-source project designed to monitor Uninterruptible Power Supplies (UPS). This guide provides instructions for running a NUT client on **Firewalla**, ensuring the device performs a graceful shutdown during a power outage to prevent hardware damage or data corruption.
 
-### About NUT
-NUT operates on a server-client architecture. While the server (`upsd`) is physically connected to the Uninterruptible Power Supply (UPS) via a USB or Serial cable, the client (`upsmon`) is the software that listens for updates over your network.
+## How it Works
+NUT uses a **Server-Client architecture** to manage power events across a network. This allows a single UPS to coordinate the shutdown of multiple devices.
+
+* **The Server** (`upsd`): Physically connects to the UPS via USB or Serial. It monitors the real-time state, such as wall power status and remaining battery percentage.
+* **The Client** (`upsmon`): Runs on your Firewalla (and any other protected devices). It listens for status updates from the server over the network.
+* **Customized Response:** Each client can have unique instructions—for example, you might set the Firewalla to shut down when the battery hits 50%, while other devices stay on longer.
+
+When the UPS status changes, the server broadcasts the update to all connected clients, triggering their individual shutdown sequences before the battery depletes.
 
 <div align="center">
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/bd5f1cef-0ac7-4994-9f52-10d7cd16f027" />
