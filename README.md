@@ -2,9 +2,7 @@
 Using a NUT client with Firewalla
 
 ### Summary
-A NUT client is the software responsible for watching the UPS status over a network and gracefully shutting down the host machine before the USP battery runs out. This project provides instructions for running a NUT client on Firewalla to ensure it safely shuts down during a blackout to prevent damage from unexpected power loss. Using a UPS is a good idea with expensive equipment like Firewalla.
-
-[NUT](https://github.com/networkupstools/nut) is an opensource project.
+[NUT](https://github.com/networkupstools/nut) is an opensource project which includes a NUT server which connects to a UPS to monitor data about its state (wall power/batter, remaining charge, etc.) and optional NUT clientswhich take information from the NUT server over a network and gracefully shut down the machine running the NUT client before the USP battery runs out. This project provides instructions for running a NUT client on Firewalla to ensure it safely shuts down during a blackout to prevent damage from unexpected power loss. Using a UPS is a good idea with expensive equipment like Firewalla.
 
 ### About NUT
 NUT operates on a server-client architecture. While the server (`upsd`) is physically connected to the Uninterruptible Power Supply (UPS) via a USB or Serial cable, the client (`upsmon`) is the software that listens for updates over your network.
