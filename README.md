@@ -14,9 +14,12 @@ NUT uses a **Server-Client architecture** to manage power events across a networ
 When the UPS status changes, the server broadcasts the update to all connected clients, triggering their individual shutdown sequences before the battery depletes.
 
 <div align="center">
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/bd5f1cef-0ac7-4994-9f52-10d7cd16f027" />
+<img width="600"" alt="image" src="https://github.com/user-attachments/assets/792bbe1e-66fd-4759-8ad1-5a8b2f0f8913" />
 </div>
 <br>
+
+
+
 
 | Component | Role | Description |
 | :--- | :--- | :--- |
